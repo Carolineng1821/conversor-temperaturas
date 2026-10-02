@@ -1,15 +1,38 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        CatalogoTemperaturas catalogoTemperaturas = new CatalogoTemperaturas();
+        ConversorTemperaturas conversorTemperaturas = new ConversorTemperaturas();
+        Temperatura temperaturaOrigen = null;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Selecciona la temperatura que desea calcular: ");
+        System.out.println("1. Celsius");
+        System.out.println("2. fahrenheit");
+        System.out.println("3. Kelvin");
+
+        int opcionOrigen = scanner.nextInt();
+        if (opcionOrigen == 1) {
+            temperaturaOrigen = catalogoTemperaturas.buscarTemperatura("°C");
+        } else if (opcionOrigen == 2) {
+            temperaturaOrigen = catalogoTemperaturas.buscarTemperatura("°F");
+        } else if (opcionOrigen == 3) {
+            temperaturaOrigen = catalogoTemperaturas.buscarTemperatura("K");
+        } else {
+            System.out.println("Invalido");
+            return;
         }
+
+        System.out.println("Cantidad:");
+        double cantidad = scanner.nextDouble();
+        temperaturaOrigen.setValor(cantidad);
+
+        ResultadoTemperatura resultado = conversorTemperaturas.conversor(temperaturaOrigen);
+
+        System.out.println("Celsius: " + resultado.getCelsius());
+        System.out.println("Fahrenheit: " + resultado.getFahrenheit());
+        System.out.println("Kelvin: " + resultado.getKelvin());
+
     }
 }
